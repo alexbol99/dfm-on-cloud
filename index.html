@@ -18,7 +18,13 @@
 </head>
 <body>
     <div id="main">
-        <h4>Run DFM</h4>
+        <h1>Run DFM</h1>
+        <button onclick="submitJob()">
+            <h3>Start</h3>
+        </button>
+        <h2 id="success-message"></h2>
+        <h3 id="job-name"></h3>
+        <h3 id="job-id"></h3>
     </div>
     <script>
         const apigClient = apigClientFactory.newClient({
@@ -27,25 +33,30 @@
             region: 'eu-central-1'
         });
 
-        const params = {};
-        const body = {
-            "jobName": "alexbol-acp-run9",
-            "JOB_FILE_NAME": "cloud.s100-db-test-split",
-            "LYR_NAME": "top+4.5",
-            "STEP_NAME": "org",
-            "CHK_NAME": "slc_split",
-            "ACT_PARAMS": "((pp_tests=Spacing))"
-        };
-        const additionalParams = {};
+        function submitJob() {
+            const params = {};
+            const body = {
+                "jobName": "alexbol-acp-run10",
+                "JOB_FILE_NAME": "cloud.s100-db-test-split",
+                "LYR_NAME": "top+4.5",
+                "STEP_NAME": "org",
+                "CHK_NAME": "slc_split",
+                "ACT_PARAMS": "((pp_tests=Spacing))"
+            };
+            const additionalParams = {};
 
-        apigClient.runPost(params, body, additionalParams)
-            .then(function(result){
-                //This is where you would put a success callback
-                console.log(result)
-            }).catch( function(result){
-                console.log(result)
-            //This is where you would put an error callback
-        });
+            apigClient.runPost(params, body, additionalParams)
+                .then(function(result){
+                    console.log(result);
+                    let resp = JSON.parse(result.data.body);
+                    document.getElementById("success-message").innerHTML = "Batch job submitted successfully";
+                    document.getElementById("job-name").innerHTML = `Batch job name ${resp.jobName}`;
+                    document.getElementById("job-id").innerHTML = `Batch job id ${resp.jobId}`;
+                }).catch( function(result){
+                    console.log(result);
+                    document.getElementById("success-message").innerHTML = result;
+                });
+        }
 
     </script>
 </body>
