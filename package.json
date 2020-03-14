@@ -1,0 +1,15 @@
+{
+  "name": "dfm-on-cloud",
+  "version": "1.0.0",
+  "description": "DFM on cloud",
+  "main": "apigClient.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "“Alex <“alexbol99@gmail.com”> (“https://github.com/alexbol99/flatten-red-black-tree)",
+  "license": "ISC"
+}
